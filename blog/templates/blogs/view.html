@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog View</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 60%;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .content {
+      background-color: white;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .content-header .meta {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .content h2 {
+      margin-top: 0;
+      font-size: 1.75rem;
+      color: #333;
+      text-align: center; /* Center align the title */
+    }
+
+    .content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #666;
+    }
+
+    .content a {
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+      background-color: #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .content a:hover {
+      background-color: #555;
+    }
+
+    .published-time {
+      font-size: 0.9rem;
+      color: #999;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-weight: bold;
+    }
+
+    .author {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #999;
+      text-align: right; /* Align author name to the right */
+    }
+
+    .back-link {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      text-decoration: none;
+      background-color: #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <a href="{% url 'list-blog' %}" class="back-link">Back</a>
+  <div class="container">
+    {% for i in data %}
+    <div class="content">
+      <div class="published-time">Published {{ i.publish_date|timesince }} ago</div>
+      <div class="content-header">
+        <h2>{{ i.title }}</h2>
+        <div class="meta">
+          <span class="author">By {{ i.author_name }}</span>
+        </div>
+      </div>
+      <p>{{ i.content|linebreaks }}</p>
+      <!-- <a href="#">Read More</a> -->
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
